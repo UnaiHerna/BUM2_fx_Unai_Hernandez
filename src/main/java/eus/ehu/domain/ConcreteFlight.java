@@ -105,7 +105,7 @@ public class ConcreteFlight {
 	public int allocateSeat(String fare, int numSeats) {
 		if (fare.equals("First"))
 			if (freeFirstSeats >= numSeats) {
-				freeFirstSeats -= numSeats;
+				freeFirstSeats = freeFirstSeats-numSeats;
 				return freeFirstSeats;
 			}
 			else return -1;

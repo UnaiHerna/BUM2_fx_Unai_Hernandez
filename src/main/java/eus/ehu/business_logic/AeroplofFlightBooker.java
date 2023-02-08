@@ -76,13 +76,14 @@ public class AeroplofFlightBooker implements FlightBooker {
 	 * @return                         List of concrete flights
 	 */
 	public List<ConcreteFlight> getMatchingConFlights(String intendedDepartureCity,
-			String intendedArrivalCity, Date intendedDate) {
+			String intendedArrivalCity, Date intendedDate, String fare, int numSeats) {
 
 		List<ConcreteFlight> matchingConFlights = new ArrayList<ConcreteFlight>();
 
 		for (Flight fli : availableFlights) {
 			if (fli.getArrivalCity().equals(intendedArrivalCity) &&
-					fli.getDepartureCity().equals(intendedDepartureCity))
+					fli.getDepartureCity().equals(intendedDepartureCity) &&
+					fli.)
 				matchingConFlights.addAll(fli.getConcreteFlights(intendedDate));
 		}
 
