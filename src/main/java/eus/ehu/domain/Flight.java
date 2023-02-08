@@ -6,7 +6,6 @@ import java.util.List;
 
 /**
  * Flight
- *
  * An object of this class represents an actual air link between two cities
  * The objects of the complementary class "Concrete Flight" represent actual
  * flights scheduled for this air link
@@ -69,11 +68,18 @@ public class Flight {
 	}
 
 
-	public ArrayList<ConcreteFlight> getConcreteFlights(Date date) {
+	public ArrayList<ConcreteFlight> getConcreteFlights(Date date, String fare) {
 		ArrayList<ConcreteFlight> lInDate = new ArrayList<ConcreteFlight>();
 		for (ConcreteFlight cfl : concreteFlights) {
-			if (date.equals(cfl.getDate()))
-				lInDate.add(cfl);
+			if (date.equals(cfl.getDate())){
+				if (fare.equals("First")&&cfl.getFreeFirstSeatNo()>0){
+					lInDate.add(cfl);
+				} else if (fare.equals("Business")&&cfl.getFreeBusinessSeatNo()>0){
+					lInDate.add(cfl);
+				} else if (fare.equals("Economy")&&cfl.getFreeEconomySeatNo()>0){
+					lInDate.add(cfl);
+				}
+			}
 		}
 		return lInDate;
 	}

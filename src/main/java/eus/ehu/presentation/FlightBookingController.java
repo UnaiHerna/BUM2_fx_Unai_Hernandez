@@ -8,17 +8,13 @@ import javafx.scene.control.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 import javafx.event.ActionEvent;
 
 
 import eus.ehu.business_logic.FlightBooker;
 import eus.ehu.domain.ConcreteFlight;
-import javafx.scene.input.MouseEvent;
 
 public class FlightBookingController {
 
@@ -109,6 +105,7 @@ public class FlightBookingController {
     void searchConFlightsButton(ActionEvent event) {
 
         conFlightInfo.clear();
+        String fare;
 
         String chosenDateString = monthCombo.getValue() + " " +
                 dayInput.getText() + " " + yearInput.getText();
@@ -117,10 +114,21 @@ public class FlightBookingController {
         format.setLenient(false);
 
         try {
+            if (firstRB.isSelected()) {
+                fare = "First";
+            } else if (businessRB.isSelected()) {
+                fare = "Business";
+            } else if (economyRB.isSelected()) {
+                fare = "Economy";
+            } else {
+                throw new IllegalArgumentException();
+            }
+
             Date chosenDate = format.parse(chosenDateString);
             List<ConcreteFlight> foundConFlights = businessLogic.
                     getMatchingConFlights(departureInput.getText(),
-                            arrivalInput.getText(), chosenDate);
+                            arrivalInput.getText(), chosenDate, fare);
+
             for (ConcreteFlight v : foundConFlights)
                 conFlightInfo.add(v);
             if (foundConFlights.isEmpty())
@@ -132,6 +140,8 @@ public class FlightBookingController {
         } catch (ParseException pe) {
             searchResultAnswer.setText("The chosen date " + chosenDateString +
                     " is not valid. Please correct it");
+        } catch (IllegalArgumentException e){ //im not sure at all if the fare can not be selected
+            searchResultAnswer.setText("The fare is not chosen. ");
         }
 
     }
