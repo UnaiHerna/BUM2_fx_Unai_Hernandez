@@ -29,14 +29,13 @@ public class FlightBookingController {
     private ObservableList<ConcreteFlight> conFlightInfo = FXCollections.observableArrayList();
 
     @FXML
-    private ListView<ConcreteFlight> conFlightList;
-    ;
-
-    @FXML
     private Button bookSelectedConFlightButton;
 
     @FXML
     private ComboBox<String> monthCombo;
+
+    @FXML
+    private ComboBox<ConcreteFlight> conFlightList;
 
     @FXML
     private TextField dayInput;
